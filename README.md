@@ -6,9 +6,11 @@ Machine learning techniques are frequently classied into three buckets:  supervi
 
 Unsupervised learning and generative modeling can be useful in a number of applications.  One such application is the application of limited resource application.  Manpower intensive activities like policing or social services are often resource constrained.  Consequently, governments would like to know where should available resources be best deployed.  This requires having a model (in the general sense) about possible hypotheses correlated with social symptoms like crime.  Unsupervised learning can help here by *learning latent hypotheses predictive of those social symptoms and the probability of those hypotheses*.  From Chicago crime report counts, sums, and averages, I construct a series of models that learn geographically locatable hypotheses useful for predicting and recreating those Chicago crime reports.  This can be very informative for where to allocate various government services.
 
-I analyzed three datasets containing geographical information and statistics about Chicago crime reports.  This data required grooming and cleaning.  From this data, I constructed a sequence of generative models via unsupervised learning techniques.  I then evaluated those models on separate test data using a powerful Bayesian measure of predictive performance with an Occam's prior.
+I analyzed three datasets containing geographical information and statistics about Chicago crime reports.  This data required grooming and cleaning using **pandas**.  From this data, I constructed a sequence of generative models via the unsupervised learning technique of **expectation maximization** to learn **Gaussian mixture models**.  The code for these algorithms was custom, though I am familiar with **scikitlearn**'s functions to do the same task.  I then evaluated those models on separate test data using a powerful Bayesian measure of predictive performance with an Occam's prior, the **Bayesian Information Criterion (BIC)**.
 
 ## Datasets
+
+The primary data sets were taken from the UCI Machine Learning Repo.
 
 ## Statistical Methods
 
