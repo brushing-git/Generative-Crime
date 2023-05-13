@@ -10,7 +10,7 @@ I analyzed three datasets containing geographical information and statistics abo
 
 ## Datasets
 
-The primary data sets were taken from the UCI Machine Learning Repo.
+The primary data sets were taken from the UCI Machine Learning Repo found [here](https://archive-beta.ics.uci.edu/dataset/493/query+analytics+workloads+dataset).  There were 3 data sets.  Each one consisted of an x and y coordinate that gives the center of a circle that characterizes a geographic area.  In addition, the radius of that circle was included in each data set.  According to the documentation and the **pandas-profile** report, both the center of the cirlces and the radii were sampled from a Gaussian distribution.
 
 ## Statistical Methods
 
