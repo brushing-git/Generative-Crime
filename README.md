@@ -73,10 +73,12 @@ Results showed that for data set 2, models with 7 clusters and 10 clusters perfo
 
 ![Dataset2contourbest](Images/dataset2contourbest.png)
 
-These contour plots show that the geographic clusters roughly track the intuitive clusters we saw in the initial data analysis.  What is interesting is that there are multiple clusters for the data in the high crime area, indicating particular neighborhoods that might be salient.
+These contour plots show that the geographic clusters roughly track the intuitive clusters we saw in the initial data analysis.  What is interesting is that there are multiple clusters for the data in the average or low crime areas, indicating particular neighborhoods that might be salient.  This is suggestive because it likely indicates particular predictive facts about the kinds of police reports being given.
 
 A 3D contour plot was also created to illustrate the overall distributional shape of the clusters (how sharply peaked they happen to be):
 
 ![Dataset2contour3dbest](Images/dataset2contour3dbest.png)
+
+This plot shows one distribution in the mixture and it is the one in the north east quadrant.
 
 ## Discussion
