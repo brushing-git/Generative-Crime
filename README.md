@@ -30,11 +30,15 @@ All models were trained using maximum likelihood estimation (MLE).  This method 
 
 $$ MLE(\mathcal{D}) = \underset{\theta}{\arg \max} P(\mathcal{D} | \theta) $$
 
-In my case, I wanted this to be a minimization problem so I aimed for the models to minimize the negative loglikelihood or
+where $\mathcal{D}$ is the data and $\theta$ is the model.  In my case, I wanted this to be a minimization problem so I aimed for the models to minimize the negative loglikelihood or
 
-$$ MLE_{nll}(\mathcal{D}) = \underset{\theta}{\arg \min} \log P(\mathcal{D} | \theta) $$
+$$ MLE_{nll}(\mathcal{D}) = \underset{\theta}{\arg \min} - \log P(\mathcal{D} | \theta) $$
 
 I had to evaluate the fitness of the different Gaussian Mixture Models against the data.  To that end, I broke up the 2 data sets I used, data set 2 and data set 3, into training and validation sets.  The split was 80/20 training to validation.  I then tested the fit of the models against the validation set using the Bayesian Information Criterion (BIC).  The BIC combines the loglikelihood of a model with a prior for a simpler model:
+
+$$ BIC = - \log P(\mathcal{D} | \theta) + k \log N $$
+
+where $k$ is the number of model parameters and $N$ is the number of samples in the data.  The BIC is ideal for evaluating models that can fit an arbitrary dataset like Gaussian Mixture Models because it takes into account both the fitness of the model as well as the model's complexity.  Intuitively, we want simpler models because we know that GMMs can fit a distribution to arbitrary precision with enough parameters.
 
 ## Machine Learning Methods
 
