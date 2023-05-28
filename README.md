@@ -10,7 +10,19 @@ I analyzed three datasets containing geographical information and statistics abo
 
 ## Datasets
 
-The primary data sets were taken from the UCI Machine Learning Repo found [here](https://archive-beta.ics.uci.edu/dataset/493/query+analytics+workloads+dataset).  There were 3 data sets.  Each one consisted of an x and y coordinate that gives the center of a circle that characterizes a geographic area.  In addition, the radius of that circle was included in each data set.  According to the documentation and the **pandas-profile** report, both the center of the cirlces and the radii were sampled from a Gaussian distribution.
+The primary data sets were taken from the UCI Machine Learning Repo found [here](https://archive-beta.ics.uci.edu/dataset/493/query+analytics+workloads+dataset).  There were 3 data sets.  Each one consisted of an x and y coordinate that gives the center of a circle that characterizes a geographic area.  In addition, the radius of that circle was included in each data set.  According to the documentation and the **pandas-profile** report, both the center of the cirlces and the radii were sampled from a Gaussian distribution.  The other items in the datasets dependend on the specific set.  Data set 2 had the number of police crime reports from the sampled geographic area, while data 3 had the number of crime reports plus the sum and averages of those reports.
+
+The initial data sets had a few issues.  First, included in the data sets were the columns and rows labels.  These had to be dropped from the groomed data set.  In addition, data set 3 had a number of NaN values for the sums and average of crime reports.  After identifying the culprit entries, those entries were dropped from the cleaned data set.
+
+Once cleaned, the data sets were then visualized in a Python notebook.  I created histograms for the crime counts in both datasets 2 and 3 as well as the sums and averages for dataset 3.  The results indicated an exponential distribution for the counts across both datasets.
+
+![Dataset2countdistr](Images/dataset2countdistr.png) ![Dataset3averagedistr](Images/dataset3averagedistr.png)
+
+I also performed a series of scatter plots to clue myself into the clustering behavior of the different data sets.  Dataset2 showed clear clustering behavior, with a high crime area appearing to occur at the intersection of two clusters.  Dataset3 showed no clear clustering behavior on crime report counts, but it did show clustering behavior on the crime averages.
+
+![Dataset2scatter](Images/dataset2scatter.png) ![Dataset3scatter](Images/dataset3scatteraverage.png)
+
+Both of these results suggested a type of clustering method would be appropriate.
 
 ## Statistical Methods
 
