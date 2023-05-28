@@ -26,7 +26,7 @@ Both of these results suggested a type of clustering method would be appropriate
 
 ## Statistical Methods
 
-All models were trained using maximum likelihood estimation (MLE).  This method works by finding the model in the training process that maximizes the likelihood of the data given the model or
+All models were trained using **maximum likelihood estimation (MLE)**.  This method works by finding the model in the training process that maximizes the likelihood of the data given the model or
 
 $$ MLE(\mathcal{D}) = \underset{\theta}{\arg \max} P(\mathcal{D} | \theta) $$
 
@@ -34,13 +34,30 @@ where $\mathcal{D}$ is the data and $\theta$ is the model.  In my case, I wanted
 
 $$ MLE_{nll}(\mathcal{D}) = \underset{\theta}{\arg \min} - \log P(\mathcal{D} | \theta) $$
 
-I had to evaluate the fitness of the different Gaussian Mixture Models against the data.  To that end, I broke up the 2 data sets I used, data set 2 and data set 3, into training and validation sets.  The split was 80/20 training to validation.  I then tested the fit of the models against the validation set using the Bayesian Information Criterion (BIC).  The BIC combines the loglikelihood of a model with a prior for a simpler model:
+I had to evaluate the fitness of the different Gaussian Mixture Models against the data.  To that end, I broke up the 2 data sets I used, data set 2 and data set 3, into training and validation sets.  The split was 80/20 training to validation.  I then tested the fit of the models against the validation set using the **Bayesian Information Criterion (BIC)**.  The BIC combines the loglikelihood of a model with a prior for a simpler model:
 
-$$ BIC = - \log P(\mathcal{D} | \theta) + k \log N $$
+$$ BIC = - \log P(\mathcal{D} | \theta) + \frac{k}{2} \log N $$
 
-where $k$ is the number of model parameters and $N$ is the number of samples in the data.  The BIC is ideal for evaluating models that can fit an arbitrary dataset like Gaussian Mixture Models because it takes into account both the fitness of the model as well as the model's complexity.  Intuitively, we want simpler models because we know that GMMs can fit a distribution to arbitrary precision with enough parameters.
+where $k$ is the number of model parameters (here the 2 times the number of Gaussians) and $N$ is the number of samples in the data.  The BIC is ideal for evaluating models that can fit an arbitrary dataset like Gaussian Mixture Models (GMM) because it takes into account both the fitness of the model as well as the model's complexity.  Intuitively, we want simpler models because we know that GMMs can fit a distribution to arbitrary precision with enough parameters.
 
 ## Machine Learning Methods
+
+Since the data naturally clusters geographically, an unsupervised learning approach involving some form of clustering would be best.  However, I wanted more than just clusters; I wanted to be able regenerate the underlying data distribution to sample new points.  This is desirable because it gives the data scientist the ability to not only make prediction but to duplicate the data as need be.
+
+For that end, I elected to forgo clustering and use a **Gaussian Mixture Model (GMM)** trained via **Expectation Maximization** (EM) algorithm.  The intuition behind any mixture model is that a probability distribution can be approximated by taking an expectation over many different distributions.  We essentially weight the distributions by their prior probability and the take the sum of those priors by the products of their likelihoods.  This decomposes the target probability distribution into multiple, simpler distribution which we might be able to parameterize.  In the case of a Gaussian mixture, our learned distribution is:
+
+$$ P(\mathbf{}x) = P(\mathbf{x} | \mathcal{N}(\mu_{0}, \sigma_{0})) \pi_{0} + P(\mathbf{x} | \mathcal{N}(\mu_{1}, \sigma_{1})) \pi_{1} + \dots + P(\mathbf{x} | \mathcal{N}(\mu_{k}, \sigma_{k})) \pi_{k} $$
+
+where each $\pi$ is the prior probability of the corresponding mixture distribution.  This is just an application of the law of total probability.
+
+The EM algorithm works in a manner familiar to students of clustering.  It starts with a random initialization of model parameters and priors (typically a uniform prior).  Then the algorithm proceeds in two steps:
+
+1. Expectation:  for each data point, assign the mixture distributions each a responsibility that corresponds to how likely that point is for that distribution.
+2. Maximization:  update the distribution parameters based on their responsibilities.
+
+The expectation step corresponds in k-means clustering to assigning data points to cluster and the maximization step corresponds to recentering the clusters based on their members.  The difference here is that every point provides a certain degree (probability) of each distribution to be responsible for its generation.
+
+While the EM algorithm is guaranteed to converge under MLE, convergence might take a while.  Towards that end, I employed two methods of early stopping.  The first set a hard limit of 50 epochs for each trained distribution.  The second used an epsilon change in improvement method.  This essentially measures the difference in the change of the negative log likelihood.  If that change is below a certain epsilon, then the algorithm terminates.
 
 ## Experiments
 
