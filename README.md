@@ -36,7 +36,7 @@ $$ MLE_{nll}(\mathcal{D}) = \underset{\theta}{\arg \min} - \log P(\mathcal{D} | 
 
 I had to evaluate the fitness of the different Gaussian Mixture Models against the data.  To that end, I broke up the 2 data sets I used, data set 2 and data set 3, into training and validation sets.  The split was 80/20 training to validation.  I then tested the fit of the models against the validation set using the **Bayesian Information Criterion (BIC)**.  The BIC combines the loglikelihood of a model with a prior for a simpler model:
 
-$$ BIC = - \log P(\mathcal{D} | \theta) + \frac{k}{2} \log N $$
+$$ BIC(\theta) = - \log P(\mathcal{D} | \theta) + \frac{k}{2} \log N $$
 
 where $k$ is the number of model parameters (here the 2 times the number of Gaussians) and $N$ is the number of samples in the data.  The BIC is ideal for evaluating models that can fit an arbitrary dataset like Gaussian Mixture Models (GMM) because it takes into account both the fitness of the model as well as the model's complexity.  Intuitively, we want simpler models because we know that GMMs can fit a distribution to arbitrary precision with enough parameters.
 
@@ -46,7 +46,7 @@ Since the data naturally clusters geographically, an unsupervised learning appro
 
 For that end, I elected to forgo clustering and use a **Gaussian Mixture Model (GMM)** trained via **Expectation Maximization** (EM) algorithm.  The intuition behind any mixture model is that a probability distribution can be approximated by taking an expectation over many different distributions.  We essentially weight the distributions by their prior probability and the take the sum of those priors by the products of their likelihoods.  This decomposes the target probability distribution into multiple, simpler distribution which we might be able to parameterize.  In the case of a Gaussian mixture, our learned distribution is:
 
-$$ P(\mathbf{}x) = P(\mathbf{x} | \mathcal{N}(\mu_{0}, \sigma_{0})) \pi_{0} + P(\mathbf{x} | \mathcal{N}(\mu_{1}, \sigma_{1})) \pi_{1} + \dots + P(\mathbf{x} | \mathcal{N}(\mu_{k}, \sigma_{k})) \pi_{k} $$
+$$ P(\mathbf{x}) = P(\mathbf{x} | \mathcal{N}(\mu_{0}, \sigma_{0})) \pi_{0} + P(\mathbf{x} | \mathcal{N}(\mu_{1}, \sigma_{1})) \pi_{1} + \dots + P(\mathbf{x} | \mathcal{N}(\mu_{k}, \sigma_{k})) \pi_{k} $$
 
 where each $\pi$ is the prior probability of the corresponding mixture distribution.  This is just an application of the law of total probability.
 
@@ -59,8 +59,16 @@ The expectation step corresponds in k-means clustering to assigning data points 
 
 While the EM algorithm is guaranteed to converge under MLE, convergence might take a while.  Towards that end, I employed two methods of early stopping.  The first set a hard limit of 50 epochs for each trained distribution.  The second used an epsilon change in improvement method.  This essentially measures the difference in the change of the negative log likelihood.  If that change is below a certain epsilon, then the algorithm terminates.
 
+All code here is custom using the **numpy** library.  Readers should note that **scikit-learn** has a GMM implementation that is likely more performant than my implementation here.
+
 ## Experiments
 
+Experiments consisted of training GMMs with up to 10 mixture Gaussians and then evaluating those GMMs using the BIC on the validation set.  Separate runs were executed for data sets 2 and 3 (data set 1 was not used because it only included geographic locations).
+
+Training was done using Python's **multiprocessing** module.  Importantly, **pool** was used to delegate tasks for separate training runs to different CPU cores, dramatically speeding up training time.  The larger the number of cores, the faster the training process would take.
+
 ## Results
+
+Results showed that for data set 2, models with 
 
 ## Discussion
