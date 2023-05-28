@@ -69,6 +69,14 @@ Training was done using Python's **multiprocessing** module.  Importantly, **poo
 
 ## Results
 
-Results showed that for data set 2, models with 
+Results showed that for data set 2, models with 7 clusters and 10 clusters performed best.  I performed 2D contour plots to illustrate where the clusters lie for data set 2:
+
+![Dataset2contourbest](Images/dataset2contourbest.png)
+
+These contour plots show that the geographic clusters roughly track the intuitive clusters we saw in the initial data analysis.  What is interesting is that there are multiple clusters for the data in the high crime area, indicating particular neighborhoods that might be salient.
+
+A 3D contour plot was also created to illustrate the overall distributional shape of the clusters (how sharply peaked they happen to be):
+
+![Dataset2contour3dbest](Images/dataset2contour3dbest.png)
 
 ## Discussion
