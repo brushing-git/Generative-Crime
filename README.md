@@ -81,8 +81,18 @@ A 3D contour plot was also created to illustrate the overall distributional shap
 
 This plot shows one distribution in the mixture and it is the one in the south east quadrant.  Intuitively, one might have thought multiple clusters to have been generated there, but here I only got one distribution and the distribution is quite broad:  indicating that a broad and flat distribution is best here.  This means that crime here likely has much higher variance.
 
-For data set 3, models with 8 and 10 clusters performed best.  Again, I performed 2D contour plots to illustrate where the distributions for data set 3 lie:
+For data set 3, models with 7 and 9 distributions performed best.  Again, I performed 2D contour plots to illustrate where the distributions for data set 3 lie:
 
 ![Dataset3contourbest](Images/dataset3contourbest.png)
 
+What is interesting is the number of clusters in the north west corner.  This was the area of the scatter plot where averages where most telling.  The model seems to have picked out on this and fitted several mixture distributions to it.  For more detail, I plotted 3D contours:
+
+![Dataset3contour3dbest](Images/datasetcontour3dbest.png)
+
+This is highly peaked and low variance around the north east corner.  This likely reflects the low variance of average reports in this area.
+
 ## Discussion
+
+These experiments show that both intuitive and counter-intuitive results are possible when doing unsupervised learning.  On the counter-intuitive side, data set 2 showed that the highest density of points, in the south east, did not result in multiple distributions fitting the area.  Instead, a single distribution that predicted the high variance of the crime report counts in those areas worked best.  On the intuitive side, the best GMM on data set 3 clearly picked out the low variance cluster on average crime reports and centered multiple distributions to model that behavior and the behavior of the other random variables.
+
+The upshot of this work is that it provides probability distributions that can not only predict data but also sample to generate new data points as needed.
