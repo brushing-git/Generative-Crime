@@ -69,7 +69,7 @@ Training was done using Python's **multiprocessing** module.  Importantly, **poo
 
 ## Results
 
-Results showed that for data set 2, models with 7 clusters and 10 clusters performed best.  I performed 2D contour plots to illustrate where the clusters lie for data set 2:
+Results showed that for data set 2, models with 7 clusters and 10 clusters performed best.  I performed 2D contour plots to illustrate where the distributions lie for data set 2:
 
 ![Dataset2contourbest](Images/dataset2contourbest.png)
 
@@ -79,6 +79,10 @@ A 3D contour plot was also created to illustrate the overall distributional shap
 
 ![Dataset2contour3dbest](Images/dataset2contour3dbest.png)
 
-This plot shows one distribution in the mixture and it is the one in the north east quadrant.
+This plot shows one distribution in the mixture and it is the one in the south east quadrant.  Intuitively, one might have thought multiple clusters to have been generated there, but here I only got one distribution and the distribution is quite broad:  indicating that a broad and flat distribution is best here.  This means that crime here likely has much higher variance.
+
+For data set 3, models with 8 and 10 clusters performed best.  Again, I performed 2D contour plots to illustrate where the distributions for data set 3 lie:
+
+![Dataset3contourbest](Images/dataset3contourbest.png)
 
 ## Discussion
