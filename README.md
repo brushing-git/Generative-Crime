@@ -22,9 +22,19 @@ I also performed a series of scatter plots to clue myself into the clustering be
 
 ![Dataset2scatter](Images/dataset2scatter.png) ![Dataset3scatter](Images/dataset3scatteraverage.png)
 
-Both of these results suggested a type of clustering method would be appropriate.
+Both of these results suggested a type of clustering method would be appropriate.  I choose to do a type of generative clustering to better learn the data.
 
 ## Statistical Methods
+
+All models were trained using maximum likelihood estimation (MLE).  This method works by finding the model in the training process that maximizes the likelihood of the data given the model or
+
+$$ MLE(\mathcal{D}) = \underset{\theta}{\arg \max} P(\mathcal{D} | \theta) $$
+
+In my case, I wanted this to be a minimization problem so I aimed for the models to minimize the negative loglikelihood or
+
+$$ MLE_{nll}(\mathcal{D}) = \underset{\theta}{\arg \min} \log P(\mathcal{D} | \theta) $$
+
+I had to evaluate the fitness of the different Gaussian Mixture Models against the data.  To that end, I broke up the 2 data sets I used, data set 2 and data set 3, into training and validation sets.  The split was 80/20 training to validation.  I then tested the fit of the models against the validation set using the Bayesian Information Criterion (BIC).  The BIC combines the loglikelihood of a model with a prior for a simpler model:
 
 ## Machine Learning Methods
 
