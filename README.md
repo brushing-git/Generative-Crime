@@ -87,7 +87,7 @@ For data set 3, models with 7 and 9 distributions performed best.  Again, I perf
 
 What is interesting is the number of clusters in the north west corner.  This was the area of the scatter plot where averages where most telling.  The model seems to have picked out on this and fitted several mixture distributions to it.  For more detail, I plotted 3D contours:
 
-![Dataset3contour3dbest](Images/datasetcontour3dbest.png)
+![Dataset3contour3dbest](Images/dataset3contour3dbest.png)
 
 This is highly peaked and low variance around the north east corner.  This likely reflects the low variance of average reports in this area.
 
