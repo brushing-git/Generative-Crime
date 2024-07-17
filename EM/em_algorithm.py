@@ -87,8 +87,8 @@ class Distribution:
             self.sigs[:,:,i] = sum / rk[i]
         
         # Compute the priors
-        for i, pi in enumerate(self.pi):
-            pi = rk[i] / rics.shape[0]
+        for i in range(len(self.pi)):
+            self.pi[i] = rk[i] / rics.shape[0]
 
     def pdf(self, x_i: ArrayLike) -> float:
         """
